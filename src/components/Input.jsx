@@ -9,7 +9,7 @@ function Input(
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={id} className="inline-block mb-1 pl-1">
+        <label htmlFor={id} className="inline-block mb-1 pl-1 dark:text-white">
           {label}
         </label>
       )}

@@ -6,6 +6,7 @@ import { login, logout } from "./store/AuthSlice";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { Outlet } from "react-router-dom";
+import { ThemeProvider } from "./context/Theme";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -25,16 +26,33 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
+  //themeMode
+  const [themeMode, setThemeMode] = useState("light");
+  function lightTheme() {
+    setThemeMode("light");
+  }
+
+  function darkTheme() {
+    setThemeMode("dark");
+  }
+
+  useEffect(() => {
+    document.querySelector("html").classList.remove("light", "dark");
+    document.querySelector("html").classList.add(themeMode);
+  }, [themeMode]);
+
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-between p-2 bg-blue-200">
-      <div className="w-full block">
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
+    <ThemeProvider value={{ themeMode, lightTheme, darkTheme }}>
+      <div className="min-h-screen flex flex-wrap content-between p-2 bg-blue-200 dark:bg-blue-300">
+        <div className="w-full block">
+          <Header />
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   ) : null;
 }
 

@@ -10,9 +10,9 @@ function PostForm({ post }) {
     useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.slut || "",
+        slug: post?.slug || "",
         content: post?.content || "",
-        status: post?.content || "active",
+        status: post?.status || "active",
       },
     });
 
@@ -57,7 +57,7 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/[^aA-zZ\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
     }
   }, []);
@@ -72,19 +72,23 @@ function PostForm({ post }) {
       subscription.unsubscribe();
     };
   }, [watch, slugTransform, setValue]);
+
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+    <form
+      onSubmit={handleSubmit(submit)}
+      className="flex flex-wrap bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4 rounded-lg shadow-md"
+    >
       <div className="w-2/3 px-2">
         <Input
           label="Title :"
           placeholder="Title"
-          className="mb-4"
+          className="mb-4 bg-gray-100 dark:bg-gray-700 dark:text-gray-100"
           {...register("title", { required: true })}
         />
         <Input
           label="Slug :"
           placeholder="Slug"
-          className="mb-4"
+          className="mb-4 bg-gray-100 dark:bg-gray-700 dark:text-gray-100"
           {...register("slug", { required: true })}
           onInput={(e) => {
             setValue("slug", slugTransform(e.currentTarget.value), {
@@ -97,13 +101,14 @@ function PostForm({ post }) {
           name="content"
           control={control}
           defaultValue={getValues("content")}
+          className="dark:bg-gray-700 dark:text-gray-100"
         />
       </div>
       <div className="w-1/3 px-2">
         <Input
           label="Featured Image :"
           type="file"
-          className="mb-4"
+          className="mb-4 bg-gray-100 dark:bg-gray-700 dark:text-gray-100"
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
@@ -119,13 +124,13 @@ function PostForm({ post }) {
         <Select
           options={["active", "inactive"]}
           label="Status"
-          className="mb-4"
+          className="mb-4 bg-gray-100 dark:bg-gray-700 dark:text-gray-100"
           {...register("status", { required: true })}
         />
         <Button
           type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
-          className="w-full"
+          bgColor={post ? "bg-green-500" : "bg-blue-500"}
+          className="w-full text-white dark:bg-blue-700 hover:dark:bg-blue-800"
         >
           {post ? "Update" : "Submit"}
         </Button>

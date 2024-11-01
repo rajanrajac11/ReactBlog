@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "../container/Container";
 import Logo from "../Logo";
 import LogoutBtn from "./LogoutBtn";
+import ThemeBtn from "../ThemeBtn";
 
 function Header() {
   const dispatch = useDispatch();
@@ -41,38 +42,43 @@ function Header() {
   return (
     <header className="bg-gray-700 p-3 flex rounded-xl">
       <Container>
-        <nav className="flex">
+        <nav className="flex justify-between">
           <div className="mr-4">
             <Link to="/">
               <Logo width="70px" />
             </Link>
           </div>
-          <ul className="flex ml-auto gap-3">
-            {navItems.map((item) =>
-              item.active ? (
-                <li key={item.name}>
-                  <NavLink
-                    to={item.slug}
-                    className={({ isActive }) =>
-                      `inline-block px-6 py-2 duration-200 hover:bg-blue-500 text-white rounded-xl ${
-                        isActive ? "bg-blue-400" : null
-                      }`
-                    }
-                  >
-                    {item.name}
-                  </NavLink>
+          <div>
+            <ul className="flex ml-auto gap-3">
+              {navItems.map((item) =>
+                item.active ? (
+                  <li key={item.name}>
+                    <NavLink
+                      to={item.slug}
+                      className={({ isActive }) =>
+                        `inline-block px-6 py-2 duration-200 hover:bg-blue-500 text-white rounded-xl font-bold ${
+                          isActive ? "bg-blue-600" : null
+                        }
+                        ${!isActive ? "bg-gray-900" : null}
+                        `
+                      }
+                    >
+                      {item.name}
+                    </NavLink>
+                  </li>
+                ) : null
+              )}{" "}
+              {authStatus && (
+                <li
+                  key="logout"
+                  className="hover:bg-blue-500 px-6 py-2 rounded-xl"
+                >
+                  <LogoutBtn />
                 </li>
-              ) : null
-            )}{" "}
-            {authStatus && (
-              <li
-                key="logout"
-                className="hover:bg-blue-500 px-6 py-2 rounded-xl"
-              >
-                <LogoutBtn />
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
+          </div>
+          <ThemeBtn />
         </nav>
       </Container>
     </header>

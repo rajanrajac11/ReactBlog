@@ -8,7 +8,7 @@ export class DocumentService {
 
   constructor() {
     this.client
-      .setEndpoint(conf.appwriteProjectUrl)
+      .setEndpoint("https://cloud.appwrite.io/v1")
       .setProject(conf.appwriteProjectId);
     this.databases = new Databases(this.client);
     this.buckets = new Storage(this.client);
@@ -36,7 +36,7 @@ export class DocumentService {
         }
       );
     } catch (error) {
-      console.log("Document Service error :: createDocumnt error : ", error);
+      console.log("Document Service error :: createPost error : ", error);
       return false;
     }
   }
@@ -67,7 +67,7 @@ export class DocumentService {
         slug
       );
     } catch (error) {
-      console.log("Document Service error :: getDocumnt error : ", error);
+      console.log("Document Service error :: getPost error : ", error);
       return false;
     }
   }
