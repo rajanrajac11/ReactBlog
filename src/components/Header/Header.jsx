@@ -71,7 +71,7 @@ function Header() {
               {authStatus && (
                 <li
                   key="logout"
-                  className="hover:bg-blue-500 px-6 py-2 rounded-xl"
+                  className="hover:bg-blue-500 px-6 py-2 rounded-xl bg-gray-900"
                 >
                   <LogoutBtn />
                 </li>
